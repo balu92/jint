@@ -1,9 +1,9 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.Contracts;
-using System.Dynamic;
+//using System.Dynamic;
 using Jint.Native.Array;
 using Jint.Native.Boolean;
 using Jint.Native.Date;
@@ -80,61 +80,61 @@ namespace Jint.Native
 
         private readonly Types _type;
 
-        [Pure]
+     //   [Pure]
         public bool IsPrimitive()
         {
             return _type != Types.Object && _type != Types.None;
         }
 
-        [Pure]
+    //    [Pure]
         public bool IsUndefined()
         {
             return _type == Types.Undefined;
         }
 
-        [Pure]
+    //    [Pure]
         public bool IsArray()
         {
             return IsObject() && AsObject() is ArrayInstance;
         }
 
-        [Pure]
+    //    [Pure]
         public bool IsRegExp()
         {
             return IsObject() && AsObject() is RegExpInstance;
         }
         
-        [Pure]
+     //   [Pure]
         public bool IsObject()
         {
             return _type == Types.Object;
         }
         
-        [Pure]
+    //    [Pure]
         public bool IsString()
         {
             return _type == Types.String;
         }
 
-        [Pure]
+    //    [Pure]
         public bool IsNumber()
         {
             return _type == Types.Number;
         }
 
-        [Pure]
+    //    [Pure]
         public bool IsBoolean()
         {
             return _type == Types.Boolean;
         }
 
-        [Pure]
+     //   [Pure]
         public bool IsNull()
         {
             return _type == Types.Null;
         }
 
-        [Pure]
+     //   [Pure]
         public ObjectInstance AsObject()
         {
             if (_type != Types.Object)
@@ -145,7 +145,7 @@ namespace Jint.Native
             return _object;
         }
 
-        [Pure]
+    //    [Pure]
         public ArrayInstance AsArray()
         {
             if (!IsArray())
@@ -155,7 +155,7 @@ namespace Jint.Native
             return AsObject() as ArrayInstance;            
         }
 
-        [Pure]
+    //    [Pure]
         public T TryCast<T>(Action<JsValue> fail = null) where T: class
         {
             if (IsObject())
@@ -186,7 +186,7 @@ namespace Jint.Native
             return _object as T;
         }
         
-        [Pure]
+   //     [Pure]
         public bool AsBoolean()
         {
             if (_type != Types.Boolean)
@@ -202,7 +202,7 @@ namespace Jint.Native
             return _bool.Value;
         }
 
-        [Pure]
+     //   [Pure]
         public string AsString()
         {
             if (_type != Types.String)
@@ -218,7 +218,7 @@ namespace Jint.Native
             return _string;
         }
 
-        [Pure]
+    //    [Pure]
         public double AsNumber()
         {
             if (_type != Types.Number)
@@ -489,11 +489,7 @@ namespace Jint.Native
                             break;
 
                         case "Object":
-                            #if __IOS__
-                                IDictionary<string, object> o = new Dictionary<string, object>(); 
-                            #else
-                                IDictionary<string, object> o = new ExpandoObject();
-                            #endif
+                            IDictionary<string, object> o = new Dictionary<string, object>();
                             
                             foreach (var p in _object.Properties)
                             {
